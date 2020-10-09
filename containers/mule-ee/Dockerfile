@@ -14,7 +14,7 @@ RUN apt-get update -y \
 	&& apt-get install -y wget \
 	&& apt-get install -y scala
 
-RUN mkdir mulezip && cd mulezip
+#RUN mkdir mulezip && cd mulezip
 
 # Download Mule Runtime EE
 RUN wget http://s3.amazonaws.com/new-mule-artifacts/mule-ee-distribution-standalone-4.3.0.zip
@@ -32,7 +32,6 @@ RUN chmod 777 $MULE_HOME/bin/launcher
 
 RUN ln -s ${MULE_HOME}/apps /apps
 
-EXPOSE 9082
 EXPOSE 5050
 EXPOSE 5051
 EXPOSE 5052
@@ -42,6 +41,6 @@ EXPOSE 5055
 EXPOSE 5056
 EXPOSE 5057
 EXPOSE 5058
+EXPOSE 5059
 
 CMD ["/opt/mule/bin/mule"]
-##COPY my-application-1.0.0-SNAPSHOT-mule-application.jar ${MULE_HOME}/apps
