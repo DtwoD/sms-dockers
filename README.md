@@ -14,3 +14,6 @@ nexus-data/
 cat admin.password 
 ed66ab4d-2c0e-4784-8269-d315178efba2bash 
 ```
+
+### Architecture
+![](DockerArch.png)
