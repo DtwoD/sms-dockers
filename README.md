@@ -5,3 +5,11 @@ Run steps:
 
 Shutdown steps:
 1. `docker-compose down [SERVICE_NAME]`
+
+
+Permissions:
+```
+chmod a+w /containers/jenkins/data
+chmod a+w /containers/nexus/data
+chmod a+w -R /containers/gitlab/data
+```
