@@ -6,10 +6,11 @@ Run steps:
 Shutdown steps:
 1. `docker-compose down [SERVICE_NAME]`
 
-
-Permissions:
+### Nexus
+To sign in, get inside containers, and use user: admin and password: value inside container/nexus-data/admin.password
 ```
-chmod a+w /containers/jenkins/data
-chmod a+w /containers/nexus/data
-chmod a+w -R /containers/gitlab/data
+docker exec -it nexus bash                                                                                                                       ✔ │ base Py 
+nexus-data/
+cat admin.password 
+ed66ab4d-2c0e-4784-8269-d315178efba2bash 
 ```
