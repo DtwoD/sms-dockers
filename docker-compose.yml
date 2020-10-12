@@ -1,18 +1,94 @@
 version: "3.8"
+
+networks:
+  analyticsnet:
+    driver: bridge
+
 services:
-  mule-ee:
-    container_name: mule-ee-4.3.0
-    image: mule-ee-4.3.0:1.0.0
-    restart: always
-    build:
-      context: ./containers/mule-ee/
-      dockerfile: Dockerfile
-    environment:
-      - MULE_HOME:/opt/mule
-      - MULE_VERSION:4.3.0
-    ports:
-      - "5050-5059:5050-5059"
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: monitoring_prometheus
+    restart: unless-stopped
     volumes:
-      - type: bind
-        source: ~/docker/mule-ee/apps
-        target: /apps
+      - ./containers/analytics/prometheus/config:/etc/prometheus/
+      - ./containers/analytics/prometheus/data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    expose:
+      - 9090
+    ports:
+      - 9090:9090
+    links:
+      - cadvisor:cadvisor
+      - node-exporter:node-exporter
+
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: monitoring_node_exporter
+    restart: unless-stopped
+    expose:
+      - 9100
+
+  influxdbData:
+    image: busybox
+    volumes:
+      - ./containers/analytics/influxdb/data:/data
+
+  influxdb:
+    image: tutum/influxdb:0.9
+    restart: always
+    environment:
+      - PRE_CREATE_DB=cadvisor
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+    expose:
+      - "8090"
+      - "8099"
+    networks:
+      - analyticsnet
+    volumes_from:
+      - "influxdbData"
+
+  cadvisor:
+    image: google/cadvisor:latest
+    links:
+      - influxdb:influxsrv
+    command: -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
+    restart: always
+    ports:
+      - "9500:8080"
+    networks:
+      - analyticsnet
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+
+  grafana:
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    links:
+      - influxdb:influxsrv
+      - prometheus:prometheus
+    volumes:
+    - ./containers/analytics/grafana/data:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      - analyticsnet
+    environment:
+      - INFLUXDB_HOST=influxsrv
+      - INFLUXDB_PORT=8086
+      - INFLUXDB_NAME=cadvisor
+      - INFLUXDB_USER=root
+      - INFLUXDB_PASS=root
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_DOMAIN=myrul.com
+      - GF_SMTP_ENABLED=true
+      - GF_SMTP_HOST=smtp.gmail.com:587
+      - GF_SMTP_USER=myadrress@gmail.com
+      - GF_SMTP_PASSWORD=mypassword
+      - GF_SMTP_FROM_ADDRESS=myaddress@gmail.com
