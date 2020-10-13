@@ -6,20 +6,20 @@ networks:
 
 services:
   mule-ee:
-    container_name: mule-ee-4.3.0
-    image: mule-ee-4.3.0:1.0.0
+    container_name: mule-ee-${MULE_VERSION}
+    image: mule-ee-${MULE_VERSION}:1.0.0
     restart: always
     build:
       context: ./containers/mule-ee/
       dockerfile: Dockerfile
     environment:
-      - MULE_HOME:/opt/mule
-      - MULE_VERSION:4.3.0
+      - MULE_HOME=${MULE_HOME}
+      - MULE_VERSION=${MULE_VERSION}
     ports:
       - "5050-5059:5050-5059"
     volumes:
       - type: bind
-        source: ~/docker/mule-ee/apps
+        source: ./containers/mule-ee/data/apps
         target: /apps
 
   jenkins:
@@ -29,11 +29,13 @@ services:
       dockerfile: Dockerfile
       context: ./containers/jenkins
     volumes:
-      - ./containers/jenkins/data:/var/jenkins_home
+      - type: bind
+          source= ./containers/jenkins/data
+          target= /var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - JENKINS_USER=CHANGE_ME
-      - JENKINS_PASS=CHANGE_ME
+      - JENKINS_USER="${JENKINS_USER}"
+      - JENKINS_PASS="${JENKINS_PASS}"
     ports:
       - "8080:8080"
       - "5000:5000"
@@ -44,7 +46,9 @@ services:
     image: sonatype/nexus3
     restart: always
     volumes:
-      - ./containers/nexus/data:/sonatype-work
+      - type: bind
+          source = ./containers/nexus/data
+          target = /sonatype-work
     ports:
       - "8081:8081"
     networks:
@@ -63,11 +67,13 @@ services:
     links:
       - sonardb
     environment:
-      - SONARQUBE_JDBC_URL=jdbc:postgresql://sonardb:5432/sonar
-      - SONARQUBE_JDBC_USERNAME=sonar
-      - SONARQUBE_JDBC_PASSWORD=sonar
+      - SONARQUBE_JDBC_URL="jdbc:postgresql://sonardb:5432/${POSTGRES_DB}"
+      - SONARQUBE_JDBC_USERNAME="${POSTGRES_USER}"
+      - SONARQUBE_JDBC_PASSWORD="${POSTGRES_PASSWORD}"
     volumes:
-      - ./containers/sonarqube/data/:/var/lib/sonar
+      - type: bind
+          source = ./containers/sonarqube/data
+          target = /var/lib/sonar
 
   sonardb:
     networks:
@@ -76,11 +82,12 @@ services:
     container_name: sonarpostgresdb
     restart: always
     environment:
-      - POSTGRES_USER=sonar
-      - POSTGRES_PASSWORD=sonar
-      - POSTGRES_DB=sonar
+      - POSTGRES_USER="${POSTGRES_USER}"
+      - POSTGRES_PASSWORD="${POSTGRES_PASSWORD}"
+      - POSTGRES_DB="${POSTGRES_DB}"
     ports:
       - "5432:5432"
     volumes:
-      - ./containers/postgresql/data/:/var/lib/postgresql
-
+      - type: bind
+          source = ./containers/postgresql/data
+          target = /var/lib/postgresql
