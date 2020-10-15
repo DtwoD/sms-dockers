@@ -1,6 +1,13 @@
+#IntelliJ
 .idea
 
 # Mac
 .DS_Store
+
+# Containers
 containers/jenkins/data/*
 containers/nexus/data/*
+containers/mule-ee/data/*
+
+#Config
+.env
