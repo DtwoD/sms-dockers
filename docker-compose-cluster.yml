@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  mule-ee-0:
+    container_name: mule-ee-${MULE_VERSION}-0
+    image: mule-ee-${MULE_VERSION}:1.0.0
+    restart: always
+    build:
+      context: ./containers/mule-ee/
+      dockerfile: Dockerfile
+      args:
+        MULE_HOME: "${MULE_HOME}"
+        MULE_VERSION: "${MULE_VERSION}"
+    environment:
+      MULE_HOME: "${MULE_HOME}"
+      MULE_VERSION: "${MULE_VERSION}"
+    ports:
+      - "5050-5059:5050-5059"
+    volumes:
+      - type: bind
+        source: ./containers/mule-ee/data/apps
+        target: /apps
+
+  mule-ee-1:
+    container_name: mule-ee-${MULE_VERSION}-1
+    image: mule-ee-${MULE_VERSION}:1.0.0
+    restart: always
+    build:
+      context: ./containers/mule-ee/
+      dockerfile: Dockerfile
+      args:
+        MULE_HOME: "${MULE_HOME}"
+        MULE_VERSION: "${MULE_VERSION}"
+    environment:
+      MULE_HOME: "${MULE_HOME}"
+      MULE_VERSION: "${MULE_VERSION}"
+    ports:
+      - "4050-4059:5050-5059"
+    volumes:
+      - type: bind
+        source: ./containers/mule-ee/data/apps
+        target: /apps
