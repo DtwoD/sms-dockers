@@ -7,6 +7,17 @@ Run steps:
 Shutdown steps:
 1. `docker-compose down [SERVICE_NAME]`
 
+Cluster Mode
+`docker-compose -f docker-compose-cluster.yml up -d`
+
+### Useful commands
+```
+docker-compose up --build (every time we do some changes on the image)
+docker-compose up -d
+docker-compose down
+docker-compose ps ---> To see the apps running
+docker-compose up --remove-orphans
+```
 
 ### Jenkins
 [http://localhost:8080](http://localhost:8080)
