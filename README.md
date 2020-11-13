@@ -7,6 +7,20 @@ Run steps:
 Shutdown steps:
 1. `docker-compose down [SERVICE_NAME]`
 
+Cluster Mode
+1. `docker-compose -f docker-compose-cluster.yml up -d`
+
+### Useful commands
+```
+docker-compose up --build (every time we do some changes on the image)
+docker-compose up -d
+docker-compose down
+docker-compose ps ---> To see the apps running
+docker-compose up --remove-orphans
+docker inspect [CONTAINER] / docker inspect <container id> | grep "IPAddress" ---> Check raw container info
+docker exec -it [CONTAINER HASH / TAG] bash ---> To get inside the container
+docker cp file/folder [CONTAINER_ID]:[FOLDER_INSIDE_CONTAINER / example: ]docker cp ~/MY_LOCAL_FILE.zip 350a486dcd7e:/opt/centos         
+```
 
 ### Jenkins
 [http://localhost:8080](http://localhost:8080)
