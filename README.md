@@ -10,6 +10,16 @@ Shutdown steps:
 Cluster Mode
 1. `docker-compose -f docker-compose-cluster.yml up -d`
 
+### How Cluster mode works?
+
+Runtime Manager
+
+![](runtime-manager-cluster-dashboard.png)
+
+![](runtime-servers.png)
+
+![](runtime-manager-cpu.png)
+
 ### Useful commands
 ```
 docker-compose up --build (every time we do some changes on the image)
