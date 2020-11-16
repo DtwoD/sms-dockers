@@ -20,4 +20,4 @@ RUN ln -s $(pwd)/mule-enterprise-standalone-${MULE_VERSION} ${MULE_HOME}
 RUN chmod 777 $MULE_HOME/bin/mule
 RUN chmod 777 $MULE_HOME/bin/launcher
 
-CMD ["/opt/mule/bin/mule"]
+#CMD ["/opt/mule/bin/mule"]

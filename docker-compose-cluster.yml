@@ -4,7 +4,9 @@ services:
   mule-ee-0:
     networks:
       - cluster-mule
-    command: "${MULE_HOME}/bin/amc_setup -H ${MULE_SERVER_OWNER} ${MULE_SERVER_ID}-0"
+    command: >
+      bash -c "${MULE_HOME}/bin/amc_setup -H ${MULE_SERVER_TOKEN} ${MULE_SERVER_ID}-0
+      && ${MULE_HOME}/bin/mule"
     container_name: mule-ee-${MULE_VERSION}-0
     image: mule-ee-${MULE_VERSION}:1.0.0
     restart: always
@@ -23,7 +25,9 @@ services:
   mule-ee-1:
     networks:
       - cluster-mule
-    command: "${MULE_HOME}/bin/amc_setup -H ${MULE_SERVER_OWNER} ${MULE_SERVER_ID}-1"
+    command: >
+      bash -c "${MULE_HOME}/bin/amc_setup -H ${MULE_SERVER_TOKEN} ${MULE_SERVER_ID}-1
+      && ${MULE_HOME}/bin/mule"
     container_name: mule-ee-${MULE_VERSION}-1
     image: mule-ee-${MULE_VERSION}:1.0.0
     restart: always
