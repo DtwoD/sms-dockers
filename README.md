@@ -1,13 +1,13 @@
 # 🐳🐳 D2D-DOCKERS 🐳🐳
 
-#### Requirements 
+### Requirements 
 Set up Docker and docker-compose
 
 [Download Docker Desktop for Mac](https://www.docker.com/get-started) 
 
 [Install docker-compose with Homebrew](https://formulae.brew.sh/formula/docker-compose)
 
-#### Mule Standalone 
+### Mule Standalone 
 Run steps: 
 1. `sh ./create-dirs.sh`
 2. `cp .env.example .env`
@@ -16,7 +16,7 @@ Run steps:
 Shutdown steps:
 1. `docker-compose down [SERVICE_NAME]`
 
-### Cluster mode using Runtime Manager?
+### Cluster mode using Runtime Manager
 
 1. Go to Anypoint Plarform -> Runtime Manager -> Servers -> Add Server
 Copy the following token and server name:
