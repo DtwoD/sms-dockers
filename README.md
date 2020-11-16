@@ -1,4 +1,11 @@
-# |-| SMS-DOCKERS
+# 🐳🐳🐳🐳🐳🐳🐳🐳 D2D-DOCKERS 🐳🐳🐳🐳🐳🐳🐳🐳
+
+#### Requirements 
+Set up Docker and docker-compose
+
+[Download Docker Desktop for Mac](https://www.docker.com/get-started) 
+
+[Install docker-compose with Homebrew](https://formulae.brew.sh/formula/docker-compose)
 
 #### Mule Standalone 
 Run steps: 
@@ -35,8 +42,8 @@ curl -X GET 1 http://0.0.0.0:5050/834test -v
 curl -X POST SERVER:PORT/ENDPOINT -d '{"tag0":value, "tag1": "value", "tag3": "value"}' -v
 ```         
 
-Extra Material
-![Drive DevOps Toolbox - Restricted][https://drive.google.com/drive/u/0/folders/1vjK5aASXmOSOoKPTs8bdDj6LUwc_Yc1o]
+#### Extra Material
+[Drive DevOps Toolbox - Restricted][https://drive.google.com/drive/u/0/folders/1vjK5aASXmOSOoKPTs8bdDj6LUwc_Yc1o]
 
 ### Runtime Manager
 
@@ -102,7 +109,3 @@ Pass: admin
 
 ### Architecture
 ![](DockerArch.png)
-
-=====================================================================================
-MONITORING
-=====================================================================================
