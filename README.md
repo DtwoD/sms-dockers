@@ -79,9 +79,8 @@ docker cp file/folder [CONTAINER_ID]:[FOLDER_INSIDE_CONTAINER / example: ]docker
 - [ ] Explore create cluster manually by copying mule-cluster.properties from existent nodes into new containers.
 
 
-=====================================================================================
-CI/CD SECTION
-=====================================================================================
+## CI/CD SECTION
+
 ### Jenkins
 [http://localhost:8080](http://localhost:8080)
 
