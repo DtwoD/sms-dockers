@@ -1,4 +1,4 @@
-# 🐳🐳🐳🐳🐳🐳🐳🐳 D2D-DOCKERS 🐳🐳🐳🐳🐳🐳🐳🐳
+# 🐳🐳 D2D-DOCKERS 🐳🐳
 
 #### Requirements 
 Set up Docker and docker-compose
