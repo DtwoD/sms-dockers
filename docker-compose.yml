@@ -3,7 +3,7 @@ version: "3.8"
 services:
   mule-ee:
     container_name: mule-ee-${MULE_VERSION}
-    image: mule-ee-${MULE_VERSION}:1.0.0
+    image: mule-ee-${MULE_VERSION}-standalone:1.0.1
     restart: always
     build:
       context: ./containers/mule-ee/
